@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة الإدارة</title>
+</head>
+<body>
+  <h1>لوحة الإدارة</h1>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="الايميل">
+    <input type="password" id="accessKey" placeholder="المفتاح">
+    <button>دخول</button>
+  </form>
+
+  <form id="addForm" style="display:none" enctype="multipart/form-data">
+    <input name="title" placeholder="اسم المنتج"><br>
+    <input name="description" placeholder="الوصف"><br>
+    <input name="specs" placeholder="المواصفات"><br>
+    <input name="imageAlt" placeholder="نص بديل"><br>
+    <input type="file" name="image"><br>
+    <button>إضافة</button>
+  </form>
+
+  <script>
+    let token = '';
+    loginForm.onsubmit = async e=>{
+      e.preventDefault();
+      const res = await fetch('/api/login', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email:email.value, accessKey:accessKey.value})
+      });
+      const data = await res.json();
+      if(data.token){
+        token = data.token;
+        addForm.style.display='block';
+      } else {
+        alert('فشل الدخول');
+      }
+    }
+
+    addForm.onsubmit = async e=>{
+      e.preventDefault();
+      const fd = new FormData(addForm);
+      const res = await fetch('/api/products',{
+        method:'POST',
+        headers:{Authorization:'Bearer '+token},
+        body:fd
+      });
+      alert(await res.text());
+    }
+  </script>
+</body>
+</html>

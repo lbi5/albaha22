@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>سيرفر الباحة</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <img src="assets/logo.png" alt="Logo">
+    <h1>سيرفر منطقة الباحة</h1>
+  </header>
+
+  <!-- قسم القوانين -->
+  <section id="rules">
+    <h2>القوانين</h2>
+    <ul>
+      <li>احترام جميع الأعضاء.</li>
+      <li>عدم نشر محتوى غير قانوني.</li>
+      <li>عدم السب أو التجريح.</li>
+      <li>اتباع تعليمات الإدارة.</li>
+    </ul>
+  </section>
+
+  <!-- قسم سيارات المعروض -->
+  <section id="cars">
+    <h2>سيارات المعروض</h2>
+    <div id="products"></div>
+  </section>
+
+  <!-- قسم الحصريات -->
+  <section id="exclusive">
+    <h2>الحصريات</h2>
+    <p>هنا يمكنك متابعة آخر الحصريات والموديلات الخاصة بالسيرفر.</p>
+  </section>
+
+  <!-- قسم المصممين -->
+  <section id="designers">
+    <h2>المصممين</h2>
+    <ul>
+      <li>عيسى السعد</li>
+      <li>أحمد الزهراني</li>
+      <li>تركي الشهري</li>
+    </ul>
+  </section>
+
+  <!-- قسم التواصل -->
+  <section class="contact">
+    <h2>تواصل مع الإدارة</h2>
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="الاسم" required>
+      <input type="email" name="email" placeholder="الايميل" required>
+      <textarea name="message" placeholder="رسالتك" rows="4" required></textarea>
+      <button type="submit">إرسال</button>
+    </form>
+  </section>
+
+  <script>
+    // جلب المنتجات من السيرفر
+    fetch('/api/products')
+      .then(r => r.json())
+      .then(items => {
+        const container = document.getElementById('products');
+        container.innerHTML = items.map(p => `
+          <div class="car-card">
+            ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.imageAlt}" width="150">` : ''}
+            <h3>${p.title}</h3>
+            <p>${p.description}</p>
+            <small>${p.specs}</small>
+          </div>
+        `).join('');
+      });
+
+    // مثال على إرسال رسالة تواصل (يمكن ربطه لاحقًا بالباك إند)
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('تم إرسال الرسالة! سيتم التواصل معك قريبًا.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
