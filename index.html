@@ -1,96 +1,228 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>سيرفر الباحة</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>سيرفر الباحة</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* تصميم لوحة الإدارة المنبثقة */
+  #adminPanelOverlay {
+    display: none;
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 2000;
+    overflow:auto;
+  }
+  #adminPanelContent {
+    max-width: 800px;
+    margin:50px auto;
+    background: #222;
+    padding:20px;
+    border-radius:10px;
+    color:white;
+  }
+  input, textarea, button { padding:10px; border-radius:5px; border:none; margin:5px 0; }
+  button { background: cyan; color:black; font-weight:bold; cursor:pointer; }
+  button:hover { background: #00ffffaa; }
+  table { width:100%; border-collapse: collapse; margin-top:20px; }
+  th, td { padding:8px; border:1px solid white; text-align:center; }
+</style>
 </head>
 <body>
 
-  <!-- Navigation Bar -->
-  <nav>
-    <a href="#rules">القوانين</a>
-    <a href="#cars">سيارات المعروض</a>
-    <a href="#exclusive">الحصريات</a>
-    <a href="#contact">تواصل</a>
-  </nav>
+<!-- القائمة الرئيسية -->
+<nav>
+  <a href="#rules">القوانين</a>
+  <a href="#cars">سيارات المعروض</a>
+  <a href="#exclusive">الحصريات</a>
+  <a href="#contact">تواصل</a>
+  <a href="#" id="openAdminBtn">لوحة الإدارة</a>
+</nav>
 
-  <!-- الشعار الكبير -->
-  <div id="logo-container">
-    <img src="logo.png" alt="Logo">
-    <h1>سيرفر منطقة الباحة</h1>
-  </div>
+<!-- الشعار الكبير -->
+<div id="logo-container">
+  <img src="assets/logo.png" alt="Logo">
+  <h1>سيرفر منطقة الباحة</h1>
+</div>
 
-  <!-- القوانين -->
-  <section id="rules">
-    <h2>القوانين</h2>
-    <ul>
-      <li>احترام جميع الأعضاء.</li>
-      <li>عدم نشر محتوى غير قانوني.</li>
-      <li>عدم السب أو التجريح.</li>
-      <li>اتباع تعليمات الإدارة.</li>
-    </ul>
-  </section>
+<!-- أقسام الموقع -->
+<section id="rules">
+  <h2>القوانين</h2>
+  <ul>
+    <li>احترام جميع الأعضاء.</li>
+    <li>عدم نشر محتوى غير قانوني.</li>
+    <li>عدم السب أو التجريح.</li>
+    <li>اتباع تعليمات الإدارة.</li>
+  </ul>
+</section>
 
-  <!-- سيارات المعروض -->
-  <section id="cars">
-    <h2>سيارات المعروض</h2>
-    <div id="products"></div>
-  </section>
+<section id="cars">
+  <h2>سيارات المعروض</h2>
+  <div id="products"></div>
+</section>
 
-  <!-- الحصريات -->
-  <section id="exclusive">
-    <h2>الحصريات</h2>
-    <p>هنا يمكنك متابعة آخر الحصريات والموديلات الخاصة بالسيرفر.</p>
-  </section>
+<section id="exclusive">
+  <h2>الحصريات</h2>
+  <p>هنا يمكنك متابعة آخر الحصريات والموديلات الخاصة بالسيرفر.</p>
+</section>
 
-  <!-- التواصل -->
-  <section class="contact" id="contact">
-    <h2>تواصل مع الإدارة</h2>
-    <form id="contactForm">
-      <input type="text" name="name" placeholder="الاسم" required>
-      <input type="email" name="email" placeholder="الايميل" required>
-      <textarea name="message" placeholder="رسالتك" rows="4" required></textarea>
-      <button type="submit">إرسال</button>
+<section class="contact" id="contact">
+  <h2>تواصل مع الإدارة</h2>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="الاسم" required>
+    <input type="email" name="email" placeholder="الايميل" required>
+    <textarea name="message" placeholder="رسالتك" rows="4" required></textarea>
+    <button type="submit">إرسال</button>
+  </form>
+  <p>
+    <a href="https://discord.gg/YourServer" target="_blank">انضم إلى Discord</a>
+  </p>
+</section>
+
+<footer>
+  <p>المصممين: عيسى السعد | أحمد الزهراني | تركي الشهري</p>
+  <p>تواصل مباشر معهم: 
+    <a href="mailto:issa@example.com">عيسى</a> | 
+    <a href="mailto:ahmed@example.com">أحمد</a> | 
+    <a href="mailto:turki@example.com">تركي</a>
+  </p>
+</footer>
+
+<!-- لوحة الإدارة المنبثقة -->
+<div id="adminPanelOverlay">
+  <div id="adminPanelContent">
+    <h2>تسجيل دخول الإدارة</h2>
+    <form id="loginForm">
+      <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+      <input type="password" name="password" placeholder="كلمة المرور" required>
+      <button type="submit">تسجيل الدخول</button>
     </form>
-    <p>
-      <a href="https://discord.gg/YourServer" target="_blank">انضم إلى Discord</a>
-    </p>
-  </section>
 
-  <!-- Footer المصممين -->
-  <footer>
-    <p>المصممين: عيسى السعد | أحمد الزهراني | تركي الشهري</p>
-    <p>تواصل مباشر معهم: 
-      <a href="mailto:issa@example.com">عيسى</a> | 
-      <a href="mailto:ahmed@example.com">أحمد</a> | 
-      <a href="mailto:turki@example.com">تركي</a>
-    </p>
-  </footer>
+    <div id="adminPanel" style="display:none;">
+      <h2>لوحة التحكم الكاملة</h2>
+      <form id="addCarForm" enctype="multipart/form-data">
+        <h3>إضافة سيارة جديدة</h3>
+        <input type="text" name="title" placeholder="اسم السيارة" required>
+        <input type="text" name="description" placeholder="وصف السيارة" required>
+        <input type="text" name="specs" placeholder="المواصفات" required>
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">إضافة السيارة</button>
+      </form>
 
-  <script>
-    // جلب سيارات المعروض من السيرفر
-    fetch('/api/products')
-      .then(r => r.json())
-      .then(items => {
-        const container = document.getElementById('products');
-        container.innerHTML = items.map(p => `
-          <div class="car-card">
-            ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.imageAlt}" width="150">` : ''}
-            <h3>${p.title}</h3>
-            <p>${p.description}</p>
-            <small>${p.specs}</small>
-          </div>
-        `).join('');
-      });
+      <h3>السيارات الحالية</h3>
+      <table id="carsTable">
+        <thead>
+          <tr>
+            <th>الاسم</th>
+            <th>الوصف</th>
+            <th>المواصفات</th>
+            <th>صورة</th>
+            <th>حذف</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-    // إرسال رسالة التواصل (تجريبي)
-    document.getElementById('contactForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      alert('تم إرسال الرسالة! سيتم التواصل معك قريبًا.');
-      this.reset();
-    });
-  </script>
+<script>
+const openAdminBtn = document.getElementById('openAdminBtn');
+const adminOverlay = document.getElementById('adminPanelOverlay');
+const loginForm = document.getElementById('loginForm');
+const adminPanel = document.getElementById('adminPanel');
+const addCarForm = document.getElementById('addCarForm');
+
+// فتح لوحة الإدارة
+openAdminBtn.addEventListener('click', e => {
+  e.preventDefault();
+  adminOverlay.style.display = 'block';
+});
+
+// تسجيل الدخول
+loginForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = loginForm.email.value;
+  const password = loginForm.password.value;
+
+  const res = await fetch('/api/admin-login', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({email,password})
+  });
+
+  const data = await res.json();
+  if(data.success){
+    alert(data.message);
+    loginForm.style.display = 'none';
+    adminPanel.style.display = 'block';
+    loadCars();
+  } else {
+    alert(data.message);
+  }
+});
+
+// إضافة سيارة
+addCarForm.addEventListener('submit', async e=>{
+  e.preventDefault();
+  const formData = new FormData(addCarForm);
+  const res = await fetch('/api/add-car', { method:'POST', body: formData });
+  const data = await res.json();
+  alert(data.message);
+  addCarForm.reset();
+  loadCars();
+});
+
+// عرض السيارات في الجدول
+async function loadCars(){
+  const res = await fetch('/api/products');
+  const cars = await res.json();
+  const tbody = document.querySelector('#carsTable tbody');
+  tbody.innerHTML = '';
+  cars.forEach((car,index)=>{
+    tbody.innerHTML += `
+      <tr>
+        <td>${car.title}</td>
+        <td>${car.description}</td>
+        <td>${car.specs}</td>
+        <td>${car.imageUrl ? `<img src="${car.imageUrl}" width="80">` : ''}</td>
+        <td><button onclick="deleteCar(${index})">حذف</button></td>
+      </tr>
+    `;
+  });
+}
+
+// حذف سيارة
+async function deleteCar(index){
+  const res = await fetch(`/api/delete-car/${index}`, { method:'DELETE' });
+  const data = await res.json();
+  alert(data.message);
+  loadCars();
+}
+
+// جلب السيارات للواجهة العادية
+fetch('/api/products')
+  .then(r=>r.json())
+  .then(items=>{
+    const container = document.getElementById('products');
+    container.innerHTML = items.map(p=>`
+      <div class="car-card">
+        ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.imageAlt}" width="150">` : ''}
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <small>${p.specs}</small>
+      </div>
+    `).join('');
+  });
+
+// نموذج التواصل (الزائر)
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  alert('تم إرسال الرسالة! سيتم التواصل معك قريبًا.');
+  this.reset();
+});
+</script>
 
 </body>
 </html>
