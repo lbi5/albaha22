@@ -6,12 +6,22 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <img src="assets/logo.png" alt="Logo">
-    <h1>سيرفر منطقة الباحة</h1>
-  </header>
 
-  <!-- قسم القوانين -->
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="#rules">القوانين</a>
+    <a href="#cars">سيارات المعروض</a>
+    <a href="#exclusive">الحصريات</a>
+    <a href="#contact">تواصل</a>
+  </nav>
+
+  <!-- الشعار الكبير -->
+  <div id="logo-container">
+    <img src="logo.png" alt="Logo">
+    <h1>سيرفر منطقة الباحة</h1>
+  </div>
+
+  <!-- القوانين -->
   <section id="rules">
     <h2>القوانين</h2>
     <ul>
@@ -22,30 +32,20 @@
     </ul>
   </section>
 
-  <!-- قسم سيارات المعروض -->
+  <!-- سيارات المعروض -->
   <section id="cars">
     <h2>سيارات المعروض</h2>
     <div id="products"></div>
   </section>
 
-  <!-- قسم الحصريات -->
+  <!-- الحصريات -->
   <section id="exclusive">
     <h2>الحصريات</h2>
     <p>هنا يمكنك متابعة آخر الحصريات والموديلات الخاصة بالسيرفر.</p>
   </section>
 
-  <!-- قسم المصممين -->
-  <section id="designers">
-    <h2>المصممين</h2>
-    <ul>
-      <li>عيسى السعد</li>
-      <li>أحمد الزهراني</li>
-      <li>تركي الشهري</li>
-    </ul>
-  </section>
-
-  <!-- قسم التواصل -->
-  <section class="contact">
+  <!-- التواصل -->
+  <section class="contact" id="contact">
     <h2>تواصل مع الإدارة</h2>
     <form id="contactForm">
       <input type="text" name="name" placeholder="الاسم" required>
@@ -53,10 +53,23 @@
       <textarea name="message" placeholder="رسالتك" rows="4" required></textarea>
       <button type="submit">إرسال</button>
     </form>
+    <p>
+      <a href="https://discord.gg/YourServer" target="_blank">انضم إلى Discord</a>
+    </p>
   </section>
 
+  <!-- Footer المصممين -->
+  <footer>
+    <p>المصممين: عيسى السعد | أحمد الزهراني | تركي الشهري</p>
+    <p>تواصل مباشر معهم: 
+      <a href="mailto:issa@example.com">عيسى</a> | 
+      <a href="mailto:ahmed@example.com">أحمد</a> | 
+      <a href="mailto:turki@example.com">تركي</a>
+    </p>
+  </footer>
+
   <script>
-    // جلب المنتجات من السيرفر
+    // جلب سيارات المعروض من السيرفر
     fetch('/api/products')
       .then(r => r.json())
       .then(items => {
@@ -71,12 +84,13 @@
         `).join('');
       });
 
-    // مثال على إرسال رسالة تواصل (يمكن ربطه لاحقًا بالباك إند)
+    // إرسال رسالة التواصل (تجريبي)
     document.getElementById('contactForm').addEventListener('submit', function(e){
       e.preventDefault();
       alert('تم إرسال الرسالة! سيتم التواصل معك قريبًا.');
       this.reset();
     });
   </script>
+
 </body>
 </html>
